@@ -1,6 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 module.exports = class CopyTask {
+	/**
+	 * an object representing the task of copying a file from `src` to `target_dir`
+	 * while replacing public urls with their
+	 * corresponding values from laravel's mix-manifest.json
+	 * @param {string} src the source file path
+	 * @param {string} target_dir the directory path that the file is gonna be copied into
+	 */
 	constructor(src, target_dir = "") {
 		if (!fs.existsSync(src)) throw src + " doesn't exist";
 
