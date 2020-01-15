@@ -1,0 +1,29 @@
+{
+	"name": "mix-replacer",
+	"version": "1.0.0",
+	"description": "a webpack plugin that copies files while replacing public urls with their corresponding values from laravel's mix-manifest.json",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/soufyakoub/mix-replacer.git"
+	},
+	"keywords": [
+		"replace",
+		"mix",
+		"manifest",
+		"url",
+		"public",
+		"laravel",
+		"webpack",
+		"plugin"
+	],
+	"author": "Soufiane Yakoubi splentercell.1997@gmail.com",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/soufyakoub/mix-replacer/issues"
+	},
+	"homepage": "https://github.com/soufyakoub/mix-replacer#readme"
+}
