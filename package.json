@@ -20,7 +20,11 @@
 		"webpack",
 		"plugin"
 	],
-	"author": "Soufiane Yakoubi splentercell.1997@gmail.com",
+	"author": {
+		"name": "soufyakoub",
+		"email": "splentercell.1997@gmail.com",
+		"url": "https://www.facebook.com/soufyakoub"
+	},
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/soufyakoub/mix-replacer/issues"
