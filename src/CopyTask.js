@@ -11,13 +11,9 @@ module.exports = class CopyTask {
 	constructor(src, target_dir = "") {
 		if (!fs.existsSync(src)) throw src + " doesn't exist";
 
-		target_dir = this.normalizeDir(target_dir);
-
-		var fileName = path.basename(src);
-
 		this.src = src;
 
-		this.target = path.join(target_dir, fileName);
+		this.setTargetDir(target_dir);
 	}
 
 	/**
@@ -30,5 +26,19 @@ module.exports = class CopyTask {
 		if (segments[0] === Config.publicPath) return dir;
 
 		return path.join(Config.publicPath, ...segments);
+	}
+
+	/**
+	 * set the target directory where the source file is gonna be copied into
+	 * @param {string} dir
+	 */
+	setTargetDir(dir = "") {
+		dir = this.normalizeDir(dir);
+
+		var fileName = path.basename(this.src);
+
+		this.target = path.join(dir, fileName);
+
+		return this.target;
 	}
 };
