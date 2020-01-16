@@ -1,4 +1,4 @@
-module.exports = class ChunkTransformer {
+module.exports = class Transformer {
 	constructor() {
 		this.MAX = 0;
 
