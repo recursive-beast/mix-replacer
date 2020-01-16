@@ -41,4 +41,12 @@ module.exports = class CopyTask {
 
 		return this.target;
 	}
+
+	/**
+	 * ensure that the target directory exists
+	 */
+	ensureDir() {
+		const dir = path.dirname(this.target);
+		fs.mkdirSync(dir, { recursive: true });
+	}
 };
