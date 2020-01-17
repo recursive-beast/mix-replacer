@@ -2,17 +2,13 @@ module.exports = class Transformer {
 	constructor() {
 		this.MAX = 0;
 
-		this.refreshMAX();
+		for (var key in Mix.manifest.manifest) {
+			if (key.length > this.MAX) this.MAX = key.length;
+		}
 
 		this.buffer = Buffer.allocUnsafe(this.MAX);
 
 		this.cursor = -1;
-	}
-
-	refreshMAX() {
-		for (var key in Mix.manifest.manifest) {
-			if (key.length > this.MAX) this.MAX = key.length;
-		}
 	}
 
 	/**
