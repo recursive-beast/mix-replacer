@@ -3,10 +3,6 @@ const path = require("path");
 const Transform = require("stream").Transform;
 const Transformer = require("./Transformer");
 
-const queue = [];
-// set this flag to true if there's a task running
-var isTaskRunning = false;
-
 module.exports = class CopyTask {
 	/**
 	 * an object representing the task of copying a file from `src` to `target_dir`
@@ -58,13 +54,6 @@ module.exports = class CopyTask {
 	}
 
 	run() {
-		if (isTaskRunning) {
-			queue.push(this);
-			return;
-		}
-
-		isTaskRunning = true;
-
 		this.ensureTargetDir();
 
 		const target = fs.createWriteStream(this.target);
@@ -86,21 +75,12 @@ module.exports = class CopyTask {
 		src.pipe(transform)
 			.pipe(target)
 			.on("finish", () => {
-				isTaskRunning = false;
-
 				// no need to add files that are outside the public directory to mix-manifest.json
 				if (this.target.startsWith(Config.publicPath + path.sep)) {
 					const path = this.target.substring(Config.publicPath.length);
 
 					Mix.manifest.hash(path);
 				}
-
-				const nextTask = queue.shift();
-				if (nextTask) return nextTask.run();
-
-				// no more tasks to run
-				// refresh mix-manifest.json and exit
-				Mix.manifest.refresh();
 			});
 	}
 };
