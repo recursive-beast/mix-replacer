@@ -55,6 +55,9 @@ module.exports = class CopyTask {
 
 	run() {
 		return new Promise(resolve => {
+
+			this.ensureDir();
+
 			const target = fs.createWriteStream(this.target);
 
 			const src = fs.createReadStream(this.src, { highWaterMark: 1 });
