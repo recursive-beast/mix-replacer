@@ -4,7 +4,7 @@ const CopyTask = require("./CopyTask");
 module.exports = class Replacer {
 	constructor() {
 		/** @type {Map<string,CopyTask>} */
-		this.queue = new Map();
+		this.tasks = new Map();
 	}
 
 	/**
@@ -16,10 +16,10 @@ module.exports = class Replacer {
 		const srcPaths = glob.sync(globPattern, { nodir: true });
 
 		for (var src of srcPaths) {
-			var task = this.queue.get(src);
+			var task = this.tasks.get(src);
 
 			if (task) task.setTargetDir(target_dir);
-			else this.queue.set(src, new CopyTask(src, target_dir));
+			else this.tasks.set(src, new CopyTask(src, target_dir));
 		}
 
 		return this;
