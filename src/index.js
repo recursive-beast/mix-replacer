@@ -31,7 +31,15 @@ module.exports = class Replacer {
 
 	apply(compiler) {
 		compiler.hooks.done.tap("Replacer", () => {
-			for (const task of this.tasks.values()) task.run();
+			const runningTasks = [];
+
+			for (const task of this.tasks.values()) {
+				runningTasks.push(task.run());
+			}
+
+			Promise.all(runningTasks).then(() => {
+				Mix.manifest.refresh();
+			});
 		});
 	}
 };
