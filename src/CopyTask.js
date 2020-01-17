@@ -3,6 +3,9 @@ const path = require("path");
 const Transform = require("stream").Transform;
 const Transformer = require("./Transformer");
 
+const queue = [];
+var isTaskRunning = false;
+
 module.exports = class CopyTask {
 	/**
 	 * an object representing the task of copying a file from `src` to `target_dir`
@@ -54,29 +57,37 @@ module.exports = class CopyTask {
 	}
 
 	run() {
-		return new Promise(resolve => {
+		if (isTaskRunning) {
+			queue.push(this);
+			return;
+		}
 
-			this.ensureTargetDir();
+		isTaskRunning = true;
 
-			const target = fs.createWriteStream(this.target);
+		this.ensureTargetDir();
 
-			const src = fs.createReadStream(this.src, { highWaterMark: 1 });
+		const target = fs.createWriteStream(this.target);
 
-			const transformer = new Transformer();
+		const src = fs.createReadStream(this.src, { highWaterMark: 1 });
 
-			const transform = new Transform({
-				transform(chunk, encoding, callback) {
-					callback(null, transformer.transform(chunk));
-				},
+		const transformer = new Transformer();
 
-				flush(callback) {
-					callback(null, transformer.flush());
-				}
-			});
+		const transform = new Transform({
+			transform(chunk, encoding, callback) {
+				callback(null, transformer.transform(chunk));
+			},
 
-			src.pipe(transform)
-				.pipe(target)
-				.on("finish", resolve);
+			flush(callback) {
+				callback(null, transformer.flush());
+			}
 		});
+
+		src.pipe(transform)
+			.pipe(target)
+			.on("finish", () => {
+				isTaskRunning = false;
+				const nextTask = queue.shift();
+				if (nextTask) nextTask.run();
+			});
 	}
 };
