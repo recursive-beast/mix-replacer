@@ -16,6 +16,8 @@ module.exports = class CopyTask {
 
 		this.src = src;
 
+		this.promise = null;
+
 		this.setTargetDir(target_dir);
 	}
 
@@ -36,11 +38,13 @@ module.exports = class CopyTask {
 	 * @param {string} dir
 	 */
 	setTargetDir(dir = "") {
-		dir = this.normalizeDir(dir);
+		if (!this.promise) {
+			dir = this.normalizeDir(dir);
 
-		var fileName = path.basename(this.src);
+			var fileName = path.basename(this.src);
 
-		this.target = path.join(dir, fileName);
+			this.target = path.join(dir, fileName);
+		}
 
 		return this.target;
 	}
@@ -54,33 +58,40 @@ module.exports = class CopyTask {
 	}
 
 	run() {
-		this.ensureTargetDir();
+		if (this.promise) return this.promise;
 
-		const target = fs.createWriteStream(this.target);
+		return new Promise(resolve => {
+			this.ensureTargetDir();
 
-		const src = fs.createReadStream(this.src, { highWaterMark: 1 });
+			const target = fs.createWriteStream(this.target);
 
-		const transformer = new Transformer();
+			const src = fs.createReadStream(this.src, { highWaterMark: 1 });
 
-		const transform = new Transform({
-			transform(chunk, encoding, callback) {
-				callback(null, transformer.transform(chunk));
-			},
+			const transformer = new Transformer();
 
-			flush(callback) {
-				callback(null, transformer.flush());
-			}
-		});
+			const transform = new Transform({
+				transform(chunk, encoding, callback) {
+					callback(null, transformer.transform(chunk));
+				},
 
-		src.pipe(transform)
-			.pipe(target)
-			.on("finish", () => {
-				// no need to add files that are outside the public directory to mix-manifest.json
-				if (this.target.startsWith(Config.publicPath + path.sep)) {
-					const path = this.target.substring(Config.publicPath.length);
-
-					Mix.manifest.hash(path);
+				flush(callback) {
+					callback(null, transformer.flush());
 				}
 			});
+
+			src.pipe(transform)
+				.pipe(target)
+				.on("finish", () => {
+					// no need to add files that are outside the public directory to mix-manifest.json
+					if (this.target.startsWith(Config.publicPath + path.sep)) {
+						const path = this.target.substring(Config.publicPath.length);
+
+						Mix.manifest.hash(path);
+					}
+
+					this.promise = null;
+					resolve(this.target);
+				});
+		});
 	}
 };
