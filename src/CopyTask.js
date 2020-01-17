@@ -48,7 +48,7 @@ module.exports = class CopyTask {
 	/**
 	 * ensure that the target directory exists
 	 */
-	ensureDir() {
+	ensureTargetDir() {
 		const dir = path.dirname(this.target);
 		fs.mkdirSync(dir, { recursive: true });
 	}
@@ -56,7 +56,7 @@ module.exports = class CopyTask {
 	run() {
 		return new Promise(resolve => {
 
-			this.ensureDir();
+			this.ensureTargetDir();
 
 			const target = fs.createWriteStream(this.target);
 
