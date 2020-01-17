@@ -30,6 +30,8 @@ module.exports = class Replacer {
 	}
 
 	apply(compiler) {
-		compiler.hooks.done.tap("Replacer", stats => {});
+		compiler.hooks.done.tap("Replacer", () => {
+			for (const task of this.tasks.values()) task.run();
+		});
 	}
 };
