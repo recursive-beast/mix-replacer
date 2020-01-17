@@ -1,5 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+const Transform = require("stream").Transform;
+const Transformer = require("./Transformer");
+
 module.exports = class CopyTask {
 	/**
 	 * an object representing the task of copying a file from `src` to `target_dir`
@@ -48,5 +51,29 @@ module.exports = class CopyTask {
 	ensureDir() {
 		const dir = path.dirname(this.target);
 		fs.mkdirSync(dir, { recursive: true });
+	}
+
+	run() {
+		return new Promise(resolve => {
+			const target = fs.createWriteStream(this.target);
+
+			const src = fs.createReadStream(this.src, { highWaterMark: 1 });
+
+			const transformer = new Transformer();
+
+			const transform = new Transform({
+				transform(chunk, encoding, callback) {
+					callback(null, transformer.transform(chunk));
+				},
+
+				flush(callback) {
+					callback(null, transformer.flush());
+				}
+			});
+
+			src.pipe(transform)
+				.pipe(target)
+				.on("finish", resolve);
+		});
 	}
 };
