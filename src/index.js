@@ -16,6 +16,10 @@ module.exports = class Replacer {
 		const srcPaths = glob.sync(globPattern, { nodir: true });
 
 		for (var src of srcPaths) {
+			// if task with src path same as `src` is found
+			// override its target directory
+			// else just add a new one
+
 			var task = this.tasks.get(src);
 
 			if (task) task.setTargetDir(target_dir);
