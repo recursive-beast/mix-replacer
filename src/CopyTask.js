@@ -57,6 +57,10 @@ module.exports = class CopyTask {
 		fs.mkdirSync(dir, { recursive: true });
 	}
 
+	/**
+	 * returns a promise for the current task that resolves to the resulting file's path .
+	 * @returns {Promise<string>}
+	 */
 	run() {
 		if (this.promise) return this.promise;
 
