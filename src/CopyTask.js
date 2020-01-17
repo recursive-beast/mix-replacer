@@ -26,7 +26,7 @@ module.exports = class CopyTask {
 	 * @param {string} dir
 	 */
 	normalizeDir(dir = "") {
-		var segments = dir.split(/\/|\\/g);
+		var segments = dir.split(/\/|\\|\.\./g);
 
 		if (segments[0] === Config.publicPath) return dir;
 
@@ -82,14 +82,10 @@ module.exports = class CopyTask {
 			src.pipe(transform)
 				.pipe(target)
 				.on("finish", () => {
-					// no need to add files that are outside the public directory to mix-manifest.json
-					if (this.target.startsWith(Config.publicPath + path.sep)) {
-						const path = this.target.substring(Config.publicPath.length);
-
-						Mix.manifest.hash(path);
-					}
+					Mix.manifest.hash(this.target.substring(Config.publicPath.length));
 
 					this.promise = null;
+
 					resolve(this.target);
 				});
 		});
