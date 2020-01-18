@@ -58,8 +58,7 @@ module.exports = class CopyTask {
 	}
 
 	/**
-	 * returns a promise for the current task that resolves to the resulting file's path .
-	 * @returns {Promise<string>}
+	 * @returns {Promise<string>} a promise for the current task that resolves to the resulting file's path .
 	 */
 	run() {
 		if (this.promise) return this.promise;
