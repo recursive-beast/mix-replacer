@@ -4,7 +4,7 @@
 	"description": "a webpack plugin that copies files while replacing public urls with their corresponding values from laravel's mix-manifest.json",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "jasmine"
 	},
 	"repository": {
 		"type": "git",
@@ -31,6 +31,7 @@
 	},
 	"homepage": "https://github.com/soufyakoub/mix-replacer#readme",
 	"devDependencies": {
+		"jasmine": "^3.5.0",
 		"laravel-mix": "^5.0.1"
 	}
 }
