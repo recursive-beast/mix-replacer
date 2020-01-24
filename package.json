@@ -4,7 +4,7 @@
 	"description": "a webpack plugin that copies files while replacing public urls with their corresponding values from laravel's mix-manifest.json",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "jasmine"
+		"test": "jasmine --seed=9846"
 	},
 	"repository": {
 		"type": "git",
