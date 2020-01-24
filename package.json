@@ -33,6 +33,7 @@
 	"devDependencies": {
 		"jasmine": "^3.5.0",
 		"jasmine-spec-reporter": "^4.2.1",
-		"laravel-mix": "^5.0.1"
+		"laravel-mix": "^5.0.1",
+		"seedrandom": "^3.0.5"
 	}
 }
