@@ -16,7 +16,7 @@ module.exports = class CopyTask {
 
 		this.src = src;
 
-		this.promise = null;
+		this.running = false;
 
 		this.setTargetDir(target_dir);
 	}
@@ -38,15 +38,13 @@ module.exports = class CopyTask {
 	 * @param {string} dir
 	 */
 	setTargetDir(dir = "") {
-		if (!this.promise) {
-			dir = this.normalizeDir(dir);
+		if (this.running) return;
 
-			var fileName = path.basename(this.src);
+		dir = this.normalizeDir(dir);
 
-			this.target = path.join(dir, fileName);
-		}
+		var fileName = path.basename(this.src);
 
-		return this.target;
+		this.target = path.join(dir, fileName);
 	}
 
 	/**
@@ -61,7 +59,7 @@ module.exports = class CopyTask {
 	 * @returns {Promise<string>} a promise for the current task that resolves to the resulting file's path .
 	 */
 	run() {
-		if (this.promise) return this.promise;
+		if (this.running) return;
 
 		return new Promise(resolve => {
 			this.ensureTargetDir();
@@ -87,7 +85,7 @@ module.exports = class CopyTask {
 				.on("finish", () => {
 					Mix.manifest.hash(this.target.substring(Config.publicPath.length));
 
-					this.promise = null;
+					this.running = false;
 
 					resolve(this.target);
 				});
