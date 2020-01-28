@@ -12,7 +12,7 @@ module.exports = class CopyTask {
 	 * @param {string} target_dir the directory path that the file is gonna be copied into
 	 */
 	constructor(src, target_dir = "") {
-		if (!fs.existsSync(src)) throw src + " doesn't exist";
+		if (!fs.existsSync(src)) throw new Error(`"${src}" doesn't exist`);
 
 		this.src = src;
 
