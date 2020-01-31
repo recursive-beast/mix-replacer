@@ -5,170 +5,170 @@ const mix = require("laravel-mix");
 
 mix.setPublicPath("spec/test_public_dir");
 
-const dir_inputs = [
-	{ dir: "", expected_dir: "spec/test_public_dir" },
-	{ dir: "/", expected_dir: "spec/test_public_dir" },
-	{ dir: ".", expected_dir: "spec/test_public_dir" },
-	{ dir: "..", expected_dir: "spec/test_public_dir" },
-	{ dir: "../", expected_dir: "spec/test_public_dir" },
-	{ dir: "../../", expected_dir: "spec/test_public_dir" },
-	{ dir: "../..", expected_dir: "spec/test_public_dir" },
-	{ dir: "....", expected_dir: "spec/test_public_dir" },
-	{ dir: "..../", expected_dir: "spec/test_public_dir" },
-	{ dir: "spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "/spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "./spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "../spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "../../spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "./../../spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "../../../spec/test_public_dir", expected_dir: "spec/test_public_dir" },
-	{ dir: "./spec/test_public_dir/dirname", expected_dir: "spec/test_public_dir/dirname" },
+const inputs = [
+	{ input: "", expected: "spec/test_public_dir" },
+	{ input: "/", expected: "spec/test_public_dir" },
+	{ input: ".", expected: "spec/test_public_dir" },
+	{ input: "..", expected: "spec/test_public_dir" },
+	{ input: "../", expected: "spec/test_public_dir" },
+	{ input: "../../", expected: "spec/test_public_dir" },
+	{ input: "../..", expected: "spec/test_public_dir" },
+	{ input: "....", expected: "spec/test_public_dir" },
+	{ input: "..../", expected: "spec/test_public_dir" },
+	{ input: "spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "/spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "./spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "../spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "../../spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "./../../spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "../../../spec/test_public_dir", expected: "spec/test_public_dir" },
+	{ input: "./spec/test_public_dir/dirname", expected: "spec/test_public_dir/dirname" },
 	{
-		dir: "../spec/test_public_dir/dirname",
-		expected_dir: "spec/test_public_dir/dirname"
+		input: "../spec/test_public_dir/dirname",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "../../spec/test_public_dir/dirname",
-		expected_dir: "spec/test_public_dir/dirname"
+		input: "../../spec/test_public_dir/dirname",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "./../../spec/test_public_dir/dirname",
-		expected_dir: "spec/test_public_dir/dirname"
+		input: "./../../spec/test_public_dir/dirname",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "../../../spec/test_public_dir/dirname",
-		expected_dir: "spec/test_public_dir/dirname"
+		input: "../../../spec/test_public_dir/dirname",
+		expected: "spec/test_public_dir/dirname"
 	},
-	{ dir: "..../spec/test_public_dir", expected_dir: "spec/test_public_dir" },
+	{ input: "..../spec/test_public_dir", expected: "spec/test_public_dir" },
 	{
-		dir: "spec/test_public_dir.ext",
-		expected_dir: "spec/test_public_dir"
+		input: "spec/test_public_dir.ext",
+		expected: "spec/test_public_dir/spec"
 	},
-	{ dir: "spec/test_public_dir/dirname", expected_dir: "spec/test_public_dir/dirname" },
-	{ dir: "dirname", expected_dir: "spec/test_public_dir/dirname" },
-	{ dir: "/dirname", expected_dir: "spec/test_public_dir/dirname" },
-	{ dir: "./dirname", expected_dir: "spec/test_public_dir/dirname" },
-	{ dir: "../dirname/something", expected_dir: "spec/test_public_dir/dirname/something" },
+	{ input: "spec/test_public_dir/dirname", expected: "spec/test_public_dir/dirname" },
+	{ input: "dirname", expected: "spec/test_public_dir/dirname" },
+	{ input: "/dirname", expected: "spec/test_public_dir/dirname" },
+	{ input: "./dirname", expected: "spec/test_public_dir/dirname" },
+	{ input: "../dirname/something", expected: "spec/test_public_dir/dirname/something" },
 	{
-		dir: "../../dirname/something",
-		expected_dir: "spec/test_public_dir/dirname/something"
-	},
-	{
-		dir: "dirname/something.ext",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "../../dirname/something",
+		expected: "spec/test_public_dir/dirname/something"
 	},
 	{
-		dir: "dirname///something.ext",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "dirname/something.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "dirname\\/something.ext",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "dirname///something.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "dirname\\something.ext",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "dirname\\/something.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "\\dirname/something.ext",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "dirname\\something.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "/dirname/something.wskfh",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "\\dirname/something.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "./dirname/something.zoeu",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "/dirname/something.wskfh",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "../dirname/something.qslkdj",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "./dirname/something.zoeu",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "../..\\dirname/something.env",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "../dirname/something.qslkdj",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "../../dirname\\\\something.png",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "../..\\dirname/something.env",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "../../dirname/something.xml",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "../../dirname\\\\something.png",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "..../dirname/something.json",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "../../dirname/something.xml",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: ".dirname/something.abc",
-		expected_dir: "spec/test_public_dir/dirname/something"
+		input: "..../dirname/something.json",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "dirname/.ext",
-		expected_dir: "spec/test_public_dir/dirname"
+		input: ".dirname/something.abc",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "dirname\\.ext",
-		expected_dir: "spec/test_public_dir/dirname"
+		input: "dirname/.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: ".dirname/wsjdhsd/qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname\\.ext",
+		expected: "spec/test_public_dir/dirname"
 	},
 	{
-		dir: "dirname/wsjdhsd/qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: ".dirname/wsjdhsd/qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "dirname\\wsjdhsd\\qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname/wsjdhsd/qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "dirname/wsjdhsd\\qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname\\wsjdhsd\\qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "dirname/wsjdhsd/qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname/wsjdhsd\\qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "dirnam.e/w.sjdhsd/..qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname/wsjdhsd/qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "dirname./wsjdhsd/../qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirnam.e/w.sjdhsd/..qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd"
 	},
 	{
-		dir: "dirname./wsjdhsd/.////qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname./wsjdhsd/../qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "dirname.\\/wsjdhsd/./\\\\/qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname./wsjdhsd/.////qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	},
 	{
-		dir: "..\\dirname.\\/wsjdhsd/./\\\\/qugd",
-		expected_dir: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+		input: "dirname.\\/wsjdhsd/./\\\\/qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
+	},
+	{
+		input: "..\\dirname.\\/wsjdhsd/./\\\\/qugd",
+		expected: "spec/test_public_dir/dirname/wsjdhsd/qugd"
 	}
 ];
 
-for (const input of dir_inputs) {
-	input.expected_dir = path.normalize(input.expected_dir);
+for (const input of inputs) {
+	input.expected = path.normalize(input.expected);
 }
 
 describe("CopyTask", () => {
 	it("should force the target file path to be inside the public path", () => {
-		for (const input of dir_inputs) {
-			var dir = CopyTask.prototype.normalizeDir(input.dir);
-			expect(dir).toBe(input.expected_dir);
+		for (const input of inputs) {
+			var result = CopyTask.prototype.normalizeDir(input.input);
+			expect(result).toBe(input.expected);
 		}
 	});
 
 	it("should throw an error if source file doesn't exist", () => {
-		const inputs = [
+		const src_inputs = [
 			"",
 			".",
 			"..",
@@ -184,7 +184,7 @@ describe("CopyTask", () => {
 			"86sq74s5df"
 		];
 
-		for (const input of inputs) {
+		for (const input of src_inputs) {
 			expect(() => {
 				new CopyTask(input);
 			}).toThrowError(`"${input}" doesn't exist`);
@@ -202,10 +202,10 @@ describe("CopyTask", () => {
 		for (const src of valid_src) {
 			var file_name = path.basename(src);
 
-			for (const input of dir_inputs) {
-				var task = new CopyTask(src, input.dir);
+			for (const input of inputs) {
+				var task = new CopyTask(src, input.input);
 
-				expect(task.target).toBe(path.join(input.expected_dir, file_name));
+				expect(task.target).toBe(path.join(input.expected, file_name));
 			}
 		}
 	});
