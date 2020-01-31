@@ -47,8 +47,6 @@ module.exports = class CopyTask {
 	 * @param {string} dir
 	 */
 	setTargetDir(dir = "") {
-		if (this.running) return;
-
 		dir = this.normalizeDir(dir);
 
 		var fileName = path.basename(this.src);
@@ -71,9 +69,11 @@ module.exports = class CopyTask {
 		if (this.running) return;
 
 		return new Promise(resolve => {
+			var target_path = this.target;
+
 			this.ensureTargetDir();
 
-			const target = fs.createWriteStream(this.target);
+			const target = fs.createWriteStream(target_path);
 
 			const src = fs.createReadStream(this.src, { highWaterMark: 1 });
 
@@ -82,11 +82,11 @@ module.exports = class CopyTask {
 			src.pipe(transformer)
 				.pipe(target)
 				.on("finish", () => {
-					Mix.manifest.hash(this.target.substring(Config.publicPath.length));
+					Mix.manifest.hash(target_path.substring(Config.publicPath.length));
 
 					this.running = false;
 
-					resolve(this.target);
+					resolve(target_path);
 				});
 		});
 	}
