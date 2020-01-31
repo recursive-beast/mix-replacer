@@ -170,8 +170,6 @@ describe("CopyTask", () => {
 	it("should throw an error if source file doesn't exist", () => {
 		const src_inputs = [
 			"",
-			".",
-			"..",
 			"qsjdh",
 			"/somefile",
 			"/somefile.txt",
