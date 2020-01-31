@@ -75,7 +75,7 @@ module.exports = class CopyTask {
 
 			const target = fs.createWriteStream(target_path);
 
-			const src = fs.createReadStream(this.src, { highWaterMark: 1 });
+			const src = fs.createReadStream(this.src, { highWaterMark: 16 * 1024 });
 
 			const transformer = new Transformer();
 
