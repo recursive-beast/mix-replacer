@@ -1,69 +1,67 @@
-module.exports = class Transformer {
-	constructor() {
-		this.MAX = 0;
+const Transform = require("stream").Transform;
+const StringDecoder = require("string_decoder").StringDecoder;
 
-		for (var key in Mix.manifest.manifest) {
-			if (key.length > this.MAX) this.MAX = key.length;
+module.exports = class Transformer extends Transform {
+	constructor(options) {
+		super(options);
+
+		this.decoder = new StringDecoder();
+
+		this.savedData = "";
+	}
+
+	_flush(callback) {
+		var data_to_flush = this.savedData + this.decoder.end();
+
+		if (data_to_flush) callback(null, data_to_flush);
+		else callback();
+	}
+
+	_transform(chunk, encoding, callback) {
+		var chunk = this.decoder.write(chunk);
+
+		if (this.savedData) {
+			chunk = this.savedData + chunk;
+			this.savedData = "";
 		}
 
-		this.buffer = Buffer.allocUnsafe(this.MAX);
+		if (!chunk) return callback();
 
-		this.cursor = -1;
-	}
+		var flag = false;
+		var lastIndex = -2;
+		var result = "";
 
-	/**
-	 * get the collected data from the internal buffer
-	 */
-	flush() {
-		const flushed = Buffer.allocUnsafe(this.cursor + 1);
+		const matches = chunk.matchAll(/{{|}}/g);
 
-		if (flushed.length) this.buffer.copy(flushed, 0, 0, this.cursor + 1);
+		for (var { 0: match, index } of matches) {
+			if (flag && match === "{{")
+				return callback(new Error("nested double brace syntax is not allowed"));
 
-		this.cursor = -1;
+			if ((!flag && match === "{{") || (flag && match === "}}")) {
+				var content = chunk.substring(lastIndex + 2, index);
 
-		return flushed;
-	}
+				result += flag ? Mix.manifest.manifest[content] || content : content;
 
-	/**
-	 * get the transformation made to the provided `chunk`
-	 * @param {Buffer} chunk
-	 */
-	transform(chunk) {
-		// when cursor is `>= 0` that means we're currently collecting new chunks in the buffer
-		if (this.cursor >= 0) {
-			this.buffer[++this.cursor] = chunk[0];
+				flag = !flag;
 
-			const key = this.buffer.toString("utf8", 0, this.cursor + 1);
+				lastIndex = index;
+			}
+		}
 
-			const hashed_url = Mix.manifest.manifest[key];
+		if (flag) {
+			this.savedData = chunk.substring(lastIndex);
+		} else {
+			var end = chunk.length;
 
-			// hashed url found
-			// return it as a buffer
-			// and stop collecting new chunks until we encounter a new "/"
-			if (hashed_url) {
-				this.cursor = -1;
-				return Buffer.from(hashed_url);
+			if (chunk[chunk.length - 1] === "{") {
+				this.savedData = "{";
+				end--;
 			}
 
-			// no hashed url found
-			// max lengh of a mix-manifest key string reached
-			// so we flush what we collected so far
-			// and we stop collecting chunks
-			if (this.cursor === this.MAX - 1) return this.flush();
-
-			// return an empty buffer
-			// and keep collecting new chunks
-			return Buffer.allocUnsafe(0);
+			result += chunk.substring(lastIndex + 2, end);
 		}
 
-		// new "/" encountered
-		// start collecting new chunks
-		if (chunk[0] === 0x2f) {
-			this.buffer[++this.cursor] = 0x2f;
-			return Buffer.allocUnsafe(0);
-		}
-
-		// no new "/" encountered
-		return chunk;
+		if (result) callback(null, result);
+		else callback();
 	}
 };

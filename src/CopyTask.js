@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const Transform = require("stream").Transform;
 const Transformer = require("./Transformer");
 
 module.exports = class CopyTask {
@@ -70,17 +69,7 @@ module.exports = class CopyTask {
 
 			const transformer = new Transformer();
 
-			const transform = new Transform({
-				transform(chunk, encoding, callback) {
-					callback(null, transformer.transform(chunk));
-				},
-
-				flush(callback) {
-					callback(null, transformer.flush());
-				}
-			});
-
-			src.pipe(transform)
+			src.pipe(transformer)
 				.pipe(target)
 				.on("finish", () => {
 					Mix.manifest.hash(this.target.substring(Config.publicPath.length));
