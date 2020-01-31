@@ -2,8 +2,8 @@
 <browserconfig>
     <msapplication>
         <tile>
-            <square70x70logo src="/compiledByMix.xml"/>
-            <square150x150logo src="/compiledByMix2.xml"/>
+            <square70x70logo src="{{/compiledByMix.xml}}"/>
+            <square150x150logo src="{{/compiledByMix2.xml}}"/>
             
             <square70x70logo src="/sub/compiledByMix3.xml"/>
             <TileColor>#2483DD</TileColor>
@@ -34,9 +34,9 @@
     <msapplication>
         <tile>
             
-                        <square150x150logo src="/sub/compiledByMix4.json"/>
+                        <square150x150logo src="{{/sub/compiledByMix4.json}}"/>
             <square310x310logo src="/notCompiledByMix.xml"/>
-            <square310x310logo src="/somethingRandom.xml"/>
+            <square310x310logo src="{{/somethingRandom.xml}}"/>
             <TileColor>#2483DD</TileColor>
         </tile>
     </msapplication>

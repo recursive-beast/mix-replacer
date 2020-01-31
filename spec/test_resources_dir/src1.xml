@@ -2,9 +2,9 @@
     <browserconfig>
     <msapplication>
         <tile>
-            <square70x70logo src="/compiledByMix.xml"/>
-            <square150x150logo src="/compiledByMix2.xml"/>
-            <square310x310logo src="/notCompiledByMix.xml"/>
+            <square70x70logo src="{{/compiledByMix.xml}}"/>
+            <square150x150logo src="{{/compiledByMix2.xml}}"/>
+            <square310x310logo src="{{/notCompiledByMix.xml}}"/>
             <TileColor>#2483DD</TileColor>
         </tile>
     </msapplication>
@@ -13,7 +13,7 @@
     <msapplication>
         <tile>
             <square70x70logo src="/compiledByMix.xml"/>
-                <square150x150logo src="/sub/compiledByMix4.json"/>
+                <square150x150logo src="{{/sub/compiledByMix4.json}}"/>
             <square310x310logo src="/notCompiledByMix3.xml"/>
             <TileColor>#2483DD</TileColor>
         </tile>
@@ -23,7 +23,7 @@
     <msapplication>
         <tile>
                   <square70x70logo src="xxxxx.xml"/>
-            <square150x150logo src="/random.xml"/>
+            <square150x150logo src="{{/random.xml}}"/>
               <square310x310logo src="/notCompiledByMix.xml"/>
             <TileColor>#2483DD</TileColor>
         </tile>
@@ -32,9 +32,9 @@
             <browserconfig>
     <msapplication>
         <tile>
-            <square70x70logo src="/sub/compiledByMix3.xml"/>
+            <square70x70logo src="{{/sub/compiledByMix3.xml}}"/>
             <square150x150logo src="zdazdd!.xml"/>
-            <square310x310logo src="/somethingRandom.xml"/>
+            <square310x310logo src="{{/somethingRandom.xml}}"/>
             <TileColor>#2483DD</TileColor>
         </tile>
                                            </msapplication>
