@@ -42,7 +42,11 @@ module.exports = class Replacer {
 				runningTasks.push(task.run());
 			}
 
-			Promise.all(runningTasks).then(() => {
+			Promise.allSettled(runningTasks).then(results => {
+				for (const { status, reason } of results) {
+					if (status === "rejected") console.log(reason);
+				}
+
 				Mix.manifest.refresh();
 			});
 

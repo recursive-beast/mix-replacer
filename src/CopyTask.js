@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const pipeline = require("stream").pipeline;
 const Transformer = require("./Transformer");
 
 module.exports = class CopyTask {
@@ -68,7 +69,7 @@ module.exports = class CopyTask {
 	run() {
 		if (this._running) return;
 
-		return new Promise(resolve => {
+		return new Promise((resolve, reject) => {
 			var target_path = this._target;
 
 			this.ensureTargetDir();
@@ -79,15 +80,17 @@ module.exports = class CopyTask {
 
 			const transformer = new Transformer();
 
-			src.pipe(transformer)
-				.pipe(target)
-				.on("finish", () => {
+			pipeline(src, transformer, target, err => {
+				this._running = false;
+
+				if (err) {
+					reject(new Error(`Error in "${this._src}" . Reason : ${err.message}`));
+				} else {
 					Mix.manifest.hash(target_path.substring(Config.publicPath.length));
 
-					this._running = false;
-
 					resolve(target_path);
-				});
+				}
+			});
 		});
 	}
 };
