@@ -4,7 +4,7 @@ const CopyTask = require("./CopyTask");
 module.exports = class Replacer {
 	constructor() {
 		/** @type {Object<string,CopyTask>} */
-		this.tasks = {};
+		this._tasks = {};
 	}
 
 	/**
@@ -20,12 +20,12 @@ module.exports = class Replacer {
 			// override its target directory
 			// else add a new task
 
-			var task = this.tasks[src];
+			var task = this._tasks[src];
 
 			if (task) {
 				task.setTargetDir(target_dir);
 			} else {
-				this.tasks.set[src] = new CopyTask(src, target_dir);
+				this._tasks.set[src] = new CopyTask(src, target_dir);
 			}
 		}
 
@@ -36,8 +36,8 @@ module.exports = class Replacer {
 		compiler.hooks.done.tap("Replacer", () => {
 			const runningTasks = [];
 
-			for (const src in this.tasks) {
-				let task = this.tasks[src];
+			for (const src in this._tasks) {
+				let task = this._tasks[src];
 
 				runningTasks.push(task.run());
 			}
@@ -46,7 +46,7 @@ module.exports = class Replacer {
 				Mix.manifest.refresh();
 			});
 
-			this.tasks = {};
+			this._tasks = {};
 		});
 	}
 };

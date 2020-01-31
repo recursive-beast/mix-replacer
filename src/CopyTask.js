@@ -13,9 +13,9 @@ module.exports = class CopyTask {
 	constructor(src, target_dir = "") {
 		if (!fs.existsSync(src)) throw new Error(`"${src}" doesn't exist`);
 
-		this.src = src;
+		this._src = src;
 
-		this.running = false;
+		this._running = false;
 
 		this.setTargetDir(target_dir);
 	}
@@ -49,16 +49,16 @@ module.exports = class CopyTask {
 	setTargetDir(dir = "") {
 		dir = this.normalizeDir(dir);
 
-		var fileName = path.basename(this.src);
+		var fileName = path.basename(this._src);
 
-		this.target = path.join(dir, fileName);
+		this._target = path.join(dir, fileName);
 	}
 
 	/**
 	 * ensure that the target directory exists
 	 */
 	ensureTargetDir() {
-		const dir = path.dirname(this.target);
+		const dir = path.dirname(this._target);
 		fs.mkdirSync(dir, { recursive: true });
 	}
 
@@ -66,16 +66,16 @@ module.exports = class CopyTask {
 	 * @returns {Promise<string>} a promise for the current task that resolves to the resulting file's path .
 	 */
 	run() {
-		if (this.running) return;
+		if (this._running) return;
 
 		return new Promise(resolve => {
-			var target_path = this.target;
+			var target_path = this._target;
 
 			this.ensureTargetDir();
 
 			const target = fs.createWriteStream(target_path);
 
-			const src = fs.createReadStream(this.src, { highWaterMark: 16 * 1024 });
+			const src = fs.createReadStream(this._src, { highWaterMark: 16 * 1024 });
 
 			const transformer = new Transformer();
 
@@ -84,7 +84,7 @@ module.exports = class CopyTask {
 				.on("finish", () => {
 					Mix.manifest.hash(target_path.substring(Config.publicPath.length));
 
-					this.running = false;
+					this._running = false;
 
 					resolve(target_path);
 				});

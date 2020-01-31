@@ -5,24 +5,24 @@ module.exports = class Transformer extends Transform {
 	constructor(options) {
 		super(options);
 
-		this.decoder = new StringDecoder();
+		this._decoder = new StringDecoder();
 
-		this.savedData = "";
+		this._savedData = "";
 	}
 
 	_flush(callback) {
-		var data_to_flush = this.savedData + this.decoder.end();
+		var data_to_flush = this._savedData + this._decoder.end();
 
 		if (data_to_flush) callback(null, data_to_flush);
 		else callback();
 	}
 
 	_transform(chunk, encoding, callback) {
-		var chunk = this.decoder.write(chunk);
+		var chunk = this._decoder.write(chunk);
 
-		if (this.savedData) {
-			chunk = this.savedData + chunk;
-			this.savedData = "";
+		if (this._savedData) {
+			chunk = this._savedData + chunk;
+			this._savedData = "";
 		}
 
 		if (!chunk) return callback();
@@ -49,12 +49,12 @@ module.exports = class Transformer extends Transform {
 		}
 
 		if (flag) {
-			this.savedData = chunk.substring(lastIndex);
+			this._savedData = chunk.substring(lastIndex);
 		} else {
 			var end = chunk.length;
 
 			if (chunk[chunk.length - 1] === "{") {
-				this.savedData = "{";
+				this._savedData = "{";
 				end--;
 			}
 
