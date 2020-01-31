@@ -24,12 +24,22 @@ module.exports = class CopyTask {
 	 * prepare the provided directory path for processing
 	 * @param {string} dir
 	 */
-	normalizeDir(dir = "") {
-		var segments = dir.split(/\/|\\|\.\./g);
+	normalizeDir(dir) {
+		if (!dir) return Config.publicPath;
 
-		if (segments[0] === Config.publicPath) return dir;
+		var segments = dir.split(/\/+|\\+/g);
 
-		return path.join(Config.publicPath, ...segments);
+		if (segments[segments.length - 1].includes(".")) segments.pop();
+
+		for (let i = 0; i < segments.length; i++) {
+			segments[i] = segments[i].replace(/\.+/g, "");
+		}
+
+		dir = path.join(...segments);
+
+		if (dir.startsWith(Config.publicPath)) return dir;
+
+		return path.join(Config.publicPath, dir);
 	}
 
 	/**
