@@ -6,7 +6,7 @@ const Transformer = require("./Transformer");
 module.exports = class CopyTask {
 	/**
 	 * an object representing the task of copying a file from `src` to `target_dir`
-	 * while replacing public urls with their
+	 * while replacing public urls inside double brace syntax with their
 	 * corresponding values from laravel's mix-manifest.json
 	 * @param {string} src the source file path
 	 * @param {string} target_dir the directory path that the file is gonna be copied into
@@ -22,7 +22,7 @@ module.exports = class CopyTask {
 	}
 
 	/**
-	 * prepare the provided directory path for processing
+	 * forces the target directory to be inside the public path
 	 * @param {string} dir
 	 */
 	normalizeDir(dir) {
@@ -85,6 +85,7 @@ module.exports = class CopyTask {
 
 				if (err) {
 					fs.unlinkSync(target_path);
+
 					reject(new Error(`Error in "${this._src}" . Reason : ${err.message}`));
 				} else {
 					Mix.manifest.hash(target_path.substring(Config.publicPath.length));

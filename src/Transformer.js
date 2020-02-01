@@ -27,6 +27,7 @@ module.exports = class Transformer extends Transform {
 
 		if (!chunk) return callback();
 
+		// when flag is true , it means that a double brace block is open
 		var flag = false;
 		var lastIndex = -2;
 		var result = "";
@@ -40,6 +41,8 @@ module.exports = class Transformer extends Transform {
 			if ((!flag && match === "{{") || (flag && match === "}}")) {
 				var content = chunk.substring(lastIndex + 2, index);
 
+				// if we just matched the closing braces for an already opened block, 
+				// replace its content with the corresponding value from the mix manifest if it exists
 				result += flag ? Mix.manifest.manifest[content] || content : content;
 
 				flag = !flag;

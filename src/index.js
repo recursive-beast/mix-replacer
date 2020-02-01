@@ -28,10 +28,6 @@ mix.extend("copyAndReplace", (_, globPattern, target_dir = "") => {
 	const srcPaths = glob.sync(globPattern, { nodir: true });
 
 	for (var src of srcPaths) {
-		// if a task that has `src` as its src path is found
-		// override its target directory
-		// else add a new task
-
 		var task = tasks[src];
 
 		if (task) {
