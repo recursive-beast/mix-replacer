@@ -1,6 +1,4 @@
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
-# Mix-replacer
+# Mix-replacer [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A [laravel-mix](https://github.com/JeffreyWay/laravel-mix) extension that copies files while replacing public urls with their corresponding values from the `mix-manifest.json` .
 
