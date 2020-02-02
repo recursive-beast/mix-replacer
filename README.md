@@ -2,13 +2,11 @@
 
 # Mix-replacer
 
-A [laravel-mix](https://github.com/JeffreyWay/laravel-mix) extension that copies files while replacing public urls inside double brace syntax with their corresponding values from the `mix-manifest.json` .
+A [laravel-mix](https://github.com/JeffreyWay/laravel-mix) extension that copies files while replacing public urls with their corresponding values from the `mix-manifest.json` .
 
 ## Introduction
 
 Some times you may want to make some configuration files public ( browsersync.xml, manifest.json ... ), and they might contain urls for other public assets ( images, icons ... ), but the problem is that you'll need to add a hash as a query parameter to these public urls for cache busting purposes ( in blade templates in laravel projects, this is done by using the mix() function ), doing this manually is painful, especially for large configuration files . This is where `mix-replacer` comes in .
-
-after setting it up, all you'll have to do is to wrap public urls in your configuration files with double brace syntax ( example `"{{/public/url/here}}"` ) and then you'll compile them using your usual laravel-mix workflow, and that's it .
 
 ## Installation
 
