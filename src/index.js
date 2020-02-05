@@ -27,6 +27,8 @@ mix.then(() => {
 mix.extend("copyAndReplace", (_, globPattern, target_dir = "") => {
 	const srcPaths = glob.sync(globPattern, { nodir: true });
 
+	if (!srcPaths.length) throw new Error(`"${globPattern}" didn't yield any results`);
+
 	for (var src of srcPaths) {
 		var task = tasks[src];
 
