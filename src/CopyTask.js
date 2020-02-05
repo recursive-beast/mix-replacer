@@ -86,7 +86,7 @@ module.exports = class CopyTask {
 				if (err) {
 					fs.unlinkSync(target_path);
 
-					reject(new Error(`Error in "${this._src}" . Reason : ${err.message}`));
+					reject(new Error(`Error while transforming "${this._src}"\nReason : ${err.message}`));
 				} else {
 					Mix.manifest.hash(target_path.substring(Config.publicPath.length));
 
