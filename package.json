@@ -1,6 +1,6 @@
 {
 	"name": "mix-replacer",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "A laravel-mix extension that copies files while replacing public urls with their corresponding values from the mix-manifest.json .",
 	"main": "src/index.js",
 	"scripts": {
