@@ -1,4 +1,5 @@
 const glob = require("glob");
+const fs = require("fs");
 const mix = require("laravel-mix");
 const CopyTask = require("./CopyTask");
 
@@ -32,19 +33,27 @@ class Plugin {
 
 	apply(compiler) {
 
-		compiler.hooks.done.tap("Plugin", (stats) => {
+		compiler.hooks.done.tapAsync("Plugin", (stats, callback) => {
 			const tasks = this._tasks.map(task => task.run());
 
 			Promise.all(tasks).then(target_paths => {
-				
+
 				for (const task of this._tasks) {
 
 					const from_public_path = task._target.substring(Config.publicPath.length);
 
 					Mix.manifest.hash(from_public_path);
+
+					// Update the Webpack assets list for better terminal output.
+					stats.compilation.assets[from_public_path] = {
+						size: () => fs.statSync(task._target).size,
+						emitted: true,
+					};
 				}
 
 				Mix.manifest.refresh();
+
+				callback();
 			});
 		});
 	}
