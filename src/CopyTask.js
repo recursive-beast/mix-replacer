@@ -60,7 +60,7 @@ module.exports = class CopyTask {
 	 */
 	ensureTargetDir() {
 		const dir = path.dirname(this._target);
-		fs.mkdirSync(dir, { recursive: true });
+		fs.mkdirSync(dir, {recursive: true});
 	}
 
 	/**
@@ -76,7 +76,7 @@ module.exports = class CopyTask {
 
 			const target = fs.createWriteStream(target_path);
 
-			const src = fs.createReadStream(this._src, { highWaterMark: 16 * 1024 });
+			const src = fs.createReadStream(this._src, {highWaterMark: 16 * 1024});
 
 			const transformer = new Transformer();
 
@@ -84,12 +84,8 @@ module.exports = class CopyTask {
 				this._running = false;
 
 				if (err) {
-					fs.unlinkSync(target_path);
-
 					reject(new Error(`Error while transforming "${this._src}"\nReason : ${err.message}`));
 				} else {
-					Mix.manifest.hash(target_path.substring(Config.publicPath.length));
-
 					resolve(target_path);
 				}
 			});
