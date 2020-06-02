@@ -4,28 +4,32 @@ const CopyTask = require("./CopyTask");
 
 var tasks = {};
 
-mix.then(() => {
-	const runningTasks = [];
+class Plugin {
+	apply(compiler) {
+		compiler.hooks.done.tap("Plugin", () => {
+			const runningTasks = [];
 
-	for (const src in tasks) {
-		let task = tasks[src];
+			for (const src in tasks) {
+				let task = tasks[src];
 
-		runningTasks.push(task.run());
+				runningTasks.push(task.run());
+			}
+
+			Promise.allSettled(runningTasks).then(results => {
+				for (const {status, reason} of results) {
+					if (status === "rejected") console.log(reason);
+				}
+
+				Mix.manifest.refresh();
+			});
+
+			tasks = {};
+		});
 	}
-
-	Promise.allSettled(runningTasks).then(results => {
-		for (const { status, reason } of results) {
-			if (status === "rejected") console.log(reason);
-		}
-
-		Mix.manifest.refresh();
-	});
-
-	tasks = {};
-});
+}
 
 mix.extend("copyAndReplace", (_, globPattern, target_dir = "") => {
-	const srcPaths = glob.sync(globPattern, { nodir: true });
+	const srcPaths = glob.sync(globPattern, {nodir: true});
 
 	if (!srcPaths.length) throw new Error(`"${globPattern}" didn't yield any results`);
 
