@@ -26,6 +26,8 @@ module.exports = class CopyTask {
 		const fileName = path.basename(this._src);
 
 		this._target = path.join(target_dir, fileName);
+
+		this.path_from_public = this._target.substring(public_path.length);
 	}
 
 	/**

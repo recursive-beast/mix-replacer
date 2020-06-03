@@ -1,4 +1,5 @@
 const glob = require("glob");
+const path = require("path");
 const fs = require("fs");
 const mix = require("laravel-mix");
 const CopyTask = require("./CopyTask");
@@ -48,12 +49,11 @@ class CopyAndReplacePlugin {
 
 				for (const task of this._tasks) {
 
-					const from_public_path = task._target.substring(Config.publicPath.length);
-
-					Mix.manifest.hash(from_public_path);
+					Mix.manifest.hash(task.path_from_public);
 
 					// Update the Webpack assets list for better terminal output.
-					stats.compilation.assets[from_public_path] = {
+					const resource_path = path.join(path.sep, task.path_from_public);
+					stats.compilation.assets[resource_path] = {
 						size: () => fs.statSync(task._target).size,
 						emitted: true,
 					};
