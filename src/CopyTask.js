@@ -18,7 +18,11 @@ module.exports = class CopyTask {
 
 		this._running = false;
 
-		this.setTargetDir(target_dir);
+		target_dir = this.normalizeDir(target_dir);
+
+		const fileName = path.basename(this._src);
+
+		this._target = path.join(target_dir, fileName);
 	}
 
 	/**
@@ -41,18 +45,6 @@ module.exports = class CopyTask {
 		if (dir.startsWith(Config.publicPath)) return dir;
 
 		return path.join(Config.publicPath, dir);
-	}
-
-	/**
-	 * set the target directory where the source file is gonna be copied into
-	 * @param {string} dir
-	 */
-	setTargetDir(dir = "") {
-		dir = this.normalizeDir(dir);
-
-		var fileName = path.basename(this._src);
-
-		this._target = path.join(dir, fileName);
 	}
 
 	/**
