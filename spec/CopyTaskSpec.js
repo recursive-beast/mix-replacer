@@ -203,7 +203,7 @@ describe("CopyTask", () => {
 			for (const input of inputs) {
 				var task = new CopyTask(src, input.input);
 
-				expect(task._target).toBe(path.join(input.expected, file_name));
+				expect(task.target).toBe(path.join(input.expected, file_name));
 			}
 		}
 	});

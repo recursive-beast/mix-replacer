@@ -7,21 +7,25 @@ const CopyTask = require("./CopyTask");
 class CopyAndReplacePlugin {
 
 	constructor() {
-		this._tasks = [];
+		this.tasks = [];
 	}
 
 	/**
-	 * @param {string} globPattern
-	 * @param {string} target_dir
+	 * Register new tasks based on the provided glob pattern.
+	 *
+	 * Called when the user uses this extension in the `webpack.mix.js`.
+	 *
+	 * @param {string} pattern A shell glob pattern, or just a path to a source file.
+	 * @param {string} target_dir The target directory path.
 	 */
-	register(globPattern, target_dir = "") {
-		const srcPaths = glob.sync(globPattern, {nodir: true});
+	register(pattern, target_dir = "") {
+		const srcPaths = glob.sync(pattern, {nodir: true});
 
-		if (!srcPaths.length) throw new Error(`"${globPattern}" didn't yield any results`);
+		if (!srcPaths.length) throw new Error(`"${pattern}" didn't yield any results`);
 
 		const newTasks = srcPaths.map(src => new CopyTask(src, target_dir, Config.publicPath));
 
-		this._tasks.push(...newTasks);
+		this.tasks.push(...newTasks);
 	}
 
 	/**
@@ -43,24 +47,23 @@ class CopyAndReplacePlugin {
 	apply(compiler) {
 
 		compiler.hooks.done.tapAsync("CopyAndReplacePlugin", (stats, callback) => {
-			const tasks = this._tasks.map(task => task.run(Mix.manifest.manifest));
+			const taskPromises = this.tasks.map(task => task.run(Mix.manifest.manifest));
 
-			Promise.all(tasks).then(target_paths => {
+			Promise.all(taskPromises).then(target_paths => {
 
-				for (const task of this._tasks) {
+				for (const {target, path_from_public} of this.tasks) {
 
-					Mix.manifest.hash(task.path_from_public);
+					Mix.manifest.hash(path_from_public);
 
 					// Update the Webpack assets list for better terminal output.
-					const resource_path = path.join(path.sep, task.path_from_public);
+					const resource_path = path.join(path.sep, path_from_public);
 					stats.compilation.assets[resource_path] = {
-						size: () => fs.statSync(task._target).size,
+						size: () => fs.statSync(target).size,
 						emitted: true,
 					};
 				}
 
 				Mix.manifest.refresh();
-
 				callback();
 			});
 		});
