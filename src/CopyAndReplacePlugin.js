@@ -3,7 +3,7 @@ const fs = require("fs");
 const mix = require("laravel-mix");
 const CopyTask = require("./CopyTask");
 
-class Plugin {
+class CopyAndReplacePlugin {
 
 	constructor() {
 		this._tasks = [];
@@ -41,7 +41,7 @@ class Plugin {
 
 	apply(compiler) {
 
-		compiler.hooks.done.tapAsync("Plugin", (stats, callback) => {
+		compiler.hooks.done.tapAsync("CopyAndReplacePlugin", (stats, callback) => {
 			const tasks = this._tasks.map(task => task.run(Mix.manifest.manifest));
 
 			Promise.all(tasks).then(target_paths => {
@@ -67,4 +67,4 @@ class Plugin {
 	}
 }
 
-module.exports = Plugin;
+module.exports = CopyAndReplacePlugin;

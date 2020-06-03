@@ -1,4 +1,4 @@
 const mix = require("laravel-mix");
-const Plugin = require("./Plugin");
+const CopyAndReplacePlugin = require("./CopyAndReplacePlugin");
 
-mix.extend("copyAndReplace", new Plugin());
+mix.extend("copyAndReplace", new CopyAndReplacePlugin());
