@@ -10,11 +10,14 @@ module.exports = class CopyTask {
 	 * corresponding values from laravel's mix-manifest.json
 	 * @param {string} src the source file path
 	 * @param {string} target_dir the directory path that the file is gonna be copied into
+	 * @param {string} public_path Path for the project's public directory.
 	 */
-	constructor(src, target_dir = "") {
+	constructor(src, target_dir, public_path) {
 		if (!fs.existsSync(src)) throw new Error(`"${src}" doesn't exist`);
 
 		this._src = src;
+
+		this.public_path = public_path;
 
 		this._running = false;
 
@@ -30,12 +33,12 @@ module.exports = class CopyTask {
 	 * @param {string} dir
 	 */
 	normalizeDir(dir) {
-		if (!dir) return Config.publicPath;
+		if (!dir) return this.public_path;
 
 		const segments = dir.split(/\/+|\\+/g);
 
-		if (segments[0] !== Config.publicPath) {
-			segments.unshift(Config.publicPath);
+		if (segments[0] !== this.public_path) {
+			segments.unshift(this.public_path);
 		}
 
 		return path.join(...segments);
@@ -50,9 +53,10 @@ module.exports = class CopyTask {
 	}
 
 	/**
+	 * @param {Object} manifest The mix manifest object that contains file urls.
 	 * @returns {Promise<string>} a promise for the current task that resolves to the resulting file's path .
 	 */
-	run() {
+	run(manifest) {
 		if (this._running) return;
 
 		return new Promise((resolve, reject) => {
@@ -64,7 +68,7 @@ module.exports = class CopyTask {
 
 			const src = fs.createReadStream(this._src, {highWaterMark: 16 * 1024});
 
-			const transformer = new Transformer();
+			const transformer = new Transformer(manifest);
 
 			pipeline(src, transformer, target, err => {
 				this._running = false;

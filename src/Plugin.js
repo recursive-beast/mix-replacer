@@ -18,7 +18,7 @@ class Plugin {
 
 		if (!srcPaths.length) throw new Error(`"${globPattern}" didn't yield any results`);
 
-		let newTasks = srcPaths.map(src => new CopyTask(src, target_dir));
+		const newTasks = srcPaths.map(src => new CopyTask(src, target_dir, Config.publicPath));
 
 		this._tasks.push(...newTasks);
 	}
@@ -42,7 +42,7 @@ class Plugin {
 	apply(compiler) {
 
 		compiler.hooks.done.tapAsync("Plugin", (stats, callback) => {
-			const tasks = this._tasks.map(task => task.run());
+			const tasks = this._tasks.map(task => task.run(Mix.manifest.manifest));
 
 			Promise.all(tasks).then(target_paths => {
 

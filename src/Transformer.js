@@ -2,8 +2,10 @@ const Transform = require("stream").Transform;
 const StringDecoder = require("string_decoder").StringDecoder;
 
 module.exports = class Transformer extends Transform {
-	constructor(options) {
+	constructor(manifest, options) {
 		super(options);
+
+		this.manifest = manifest;
 
 		this._decoder = new StringDecoder();
 
@@ -43,7 +45,7 @@ module.exports = class Transformer extends Transform {
 
 				// if we just matched the closing braces for an already opened block, 
 				// replace its content with the corresponding value from the mix manifest if it exists
-				result += flag ? Mix.manifest.manifest[content] || content : content;
+				result += flag ? this.manifest[content] || content : content;
 
 				flag = !flag;
 
