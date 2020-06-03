@@ -28,7 +28,15 @@ class Plugin {
 	 * user's webpack.mix.js file has executed.
 	 */
 	boot() {
-		mix.webpackConfig({plugins: [this]});
+		mix.override(webpackConfig => {
+			const plugins = webpackConfig.plugins;
+
+			if (plugins)
+				plugins.push(this);
+			else {
+				webpackConfig.plugins = [this];
+			}
+		});
 	}
 
 	apply(compiler) {
