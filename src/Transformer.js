@@ -29,52 +29,29 @@ class Transformer extends Transform {
 			this._savedData = "";
 		}
 
-		if (!chunk) return callback();
-
-		// When flag is true , it means that a double brace block is open
-		let flag = false;
-		let lastIndex = -2;
-		let result = "";
-
-		const matches = chunk.matchAll(/{{|}}/g);
-
-		for (const {0: match, index} of matches) {
-
-			if (flag && match === "{{") {
-				return callback(new Error("nested double brace syntax is not allowed"));
-			}
-
-			if ((!flag && match === "{{") || (flag && match === "}}")) {
-				const content = chunk.substring(lastIndex + 2, index);
-
-				// If we just matched the closing braces for an already opened block, 
-				// replace its content with the corresponding value from the mix manifest if it exists
-				result += flag ? this.manifest[content] || content : content;
-
-				flag = !flag;
-
-				lastIndex = index;
-			}
+		if (!chunk) {
+			return callback();
 		}
 
-		if (flag) {
-			this._savedData = chunk.substring(lastIndex);
-		} else {
-			let end = chunk.length;
+		const result = chunk.replace(
+			/{{(.*?)}}|({(?:{(?:.*)?)?)$/g,
 
-			if (chunk[chunk.length - 1] === "{") {
-				this._savedData = "{";
-				end--;
-			}
-
-			result += chunk.substring(lastIndex + 2, end);
-		}
+			(substring, group1, group2) => {
+				if (typeof group2 === "undefined") {
+					return this.manifest[group1] || group1;
+				} else {
+					this._savedData = group2;
+					return "";
+				}
+			},
+		);
 
 		if (result) {
 			callback(null, result);
 		} else {
 			callback();
 		}
+
 	}
 }
 
