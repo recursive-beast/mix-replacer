@@ -53,7 +53,12 @@ class CopyAndReplacePlugin {
 
 				for (const {target, path_from_public} of this.tasks) {
 
-					Mix.manifest.hash(path_from_public);
+					// Check if the user requested hash versioning
+					if (Mix.components.get("version")) {
+						Mix.manifest.hash(path_from_public);
+					} else {
+						Mix.manifest.add(path_from_public);
+					}
 
 					// Update the Webpack assets list for better terminal output.
 					const resource_path = path.join(path.sep, path_from_public);
