@@ -25,7 +25,7 @@ class CopyTask {
 		const fileName = path.basename(this.src);
 
 		this.target = path.join(target_dir, fileName);
-		this.path_from_public = this.target.substring(public_path.length);
+		this.path_from_public = this.target.substring(public_path.length + 1);
 	}
 
 	/**
