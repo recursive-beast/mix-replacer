@@ -59,9 +59,9 @@ class CopyTask {
 	 * @returns {Promise<string>} A promise for the current task that resolves to the resulting file's path.
 	 */
 	run(manifest) {
-		if (this.running) return;
+		if (this.running) return this._promise;
 
-		return new Promise((resolve, reject) => {
+		this._promise = new Promise((resolve, reject) => {
 
 			this.ensureTargetDir();
 
@@ -81,6 +81,8 @@ class CopyTask {
 				}
 			});
 		});
+
+		return this._promise;
 	}
 }
 
