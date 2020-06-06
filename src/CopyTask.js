@@ -14,8 +14,6 @@ class CopyTask {
 	 * @param {string} public_path The path for the project's public directory.
 	 */
 	constructor(src, target_dir, public_path) {
-		if (!fs.existsSync(src)) throw new Error(`"${src}" doesn't exist`);
-
 		this.src = src;
 		this.public_path = public_path;
 		this.running = false;
