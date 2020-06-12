@@ -1,86 +1,65 @@
 const fs = require("fs");
-const path = require("path");
 const pipeline = require("stream").pipeline;
 const Transformer = require("./Transformer");
+const Path = require("./Path");
 
+/**
+ * An object representing the task of copying a file from `src` to `target_dir`
+ * while replacing public urls inside double brace syntax with their
+ * corresponding values from the `mix-manifest.json`.
+ */
 class CopyTask {
-	/**
-	 * An object representing the task of copying a file from `src` to `target_dir`
-	 * while replacing public urls inside double brace syntax with their
-	 * corresponding values from the `mix-manifest.json`.
-	 *
-	 * @param {string} src The source file path.
-	 * @param {string} target_dir The target directory.
-	 * @param {string} public_path The path for the project's public directory.
-	 */
-	constructor(src, target_dir, public_path) {
-		this.src = src;
-		this.public_path = public_path;
-		this.running = false;
-
-		target_dir = this.normalizeDir(target_dir);
-
-		const fileName = path.basename(this.src);
-
-		this.target = path.join(target_dir, fileName);
-		this.path_from_public = this.target.substring(public_path.length + 1);
-	}
 
 	/**
-	 * Forces the directory to be inside the public path.
-	 * @param {string} dir The directory path.
-	 * @returns {string} The normalized directory path.
+	 * @param {string|Path} src The source file path.
+	 * @param {string|Path} target_dir The target directory path.
 	 */
-	normalizeDir(dir) {
-		if (!dir) return this.public_path;
+	constructor(src, target_dir) {
+		this.src = new Path(src);
+		this.target_dir = new Path(target_dir);
 
-		const segments = dir.split(/\/+|\\+/g);
-
-		if (segments[0] !== this.public_path) {
-			segments.unshift(this.public_path);
+		if (!this.src.basename) {
+			throw Error(`${src} is not a file path`);
 		}
 
-		return path.join(...segments);
+		this.target = this.target_dir.join(this.src.basename);
 	}
 
 	/**
-	 * Ensure that the target directory exists
+	 * Ensure that the target directory exists.
 	 */
 	ensureTargetDir() {
-		const dir = path.dirname(this.target);
-		fs.mkdirSync(dir, {recursive: true});
+		fs.mkdirSync(this.target_dir.toString(), {recursive: true});
 	}
 
 	/**
 	 * Run the task.
 	 * @param {Object} manifest The mix manifest object that contains public file paths.
-	 * @returns {Promise<string>} A promise for the current task that resolves to the resulting file's path.
+	 * @returns {Promise<Path>} A promise for the current task that resolves to the resulting file's path.
 	 */
 	run(manifest) {
-		if (this.running) return this._promise;
+		if (this.promise) return this.promise;
 
-		this._promise = new Promise((resolve, reject) => {
+		this.ensureTargetDir();
 
-			this.ensureTargetDir();
+		this.promise = new Promise((resolve, reject) => {
 
-			const target = fs.createWriteStream(this.target);
+			const src = fs.createReadStream(this.src.toString(), {highWaterMark: 16 * 1024});
 
-			const src = fs.createReadStream(this.src, {highWaterMark: 16 * 1024});
+			const target = fs.createWriteStream(this.target.toString());
 
 			const transformer = new Transformer(manifest);
 
 			pipeline(src, transformer, target, err => {
-				this.running = false;
-
 				if (err) {
-					reject(new Error(`Error while transforming "${this.src}"\nReason : ${err.message}`));
+					reject(new Error(`Error while transforming "${this.src}"\nReason: ${err}`));
 				} else {
 					resolve(this.target);
 				}
 			});
 		});
 
-		return this._promise;
+		return this.promise;
 	}
 }
 
