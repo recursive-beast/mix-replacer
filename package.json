@@ -1,10 +1,10 @@
 {
 	"name": "mix-replacer",
 	"version": "1.1.1",
-	"description": "A laravel-mix extension that copies files while replacing public urls with their corresponding values from the mix-manifest.json .",
+	"description": "A laravel-mix extension to copy files append hash queries to public urls.",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "jasmine --seed=9846"
+		"test": "jest"
 	},
 	"repository": {
 		"type": "git",
@@ -18,6 +18,7 @@
 		"public",
 		"laravel",
 		"webpack",
+		"extension",
 		"plugin"
 	],
 	"author": {
@@ -30,10 +31,20 @@
 		"url": "https://github.com/soufyakoub/mix-replacer/issues"
 	},
 	"homepage": "https://github.com/soufyakoub/mix-replacer#readme",
+	"files": [
+		"src"
+	],
+	"engines": {
+		"node": ">= 10.12.0"
+	},
 	"devDependencies": {
-		"jasmine": "^3.5.0",
-		"jasmine-spec-reporter": "^4.2.1",
-		"laravel-mix": "^5.0.1",
-		"seedrandom": "^3.0.5"
+		"laravel-mix": "^5.0.4",
+		"glob": "^7.1.6",
+		"jest": "^26.0.1",
+		"@types/jest": "^26.0.0"
+	},
+	"peerDependencies": {
+		"laravel-mix": "^5.0.0",
+		"glob": "^7.0.0"
 	}
 }
