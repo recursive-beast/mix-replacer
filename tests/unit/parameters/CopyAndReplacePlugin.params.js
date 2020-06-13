@@ -1,0 +1,75 @@
+module.exports = {
+
+	"register": [
+		// [
+		// 	seed_tasks,
+		// 	src_paths,
+		//  pattern,
+		// 	target_dir,
+		// 	public_path,
+		// 	expected_target_dir,
+		// ],
+		[
+			[Object.freeze({}), Object.freeze({}), Object.freeze({})],
+			[
+				`${ROOT}file1.txt`,
+				`.${SEP}file2.txt`,
+				`${ROOT}sub1${SEP}sub2${SEP}.file3`,
+				`.${SEP}sub1${SEP}sub2${SEP}.file4`,
+			],
+			"**/some*pattern*.xml",
+			undefined,
+			undefined,
+			CWD,
+		],
+		[
+			[Object.freeze({}), Object.freeze({})],
+			[`${ROOT}file1.txt`, `.${SEP}file2.txt`, `.${SEP}sub1${SEP}sub2${SEP}.file4`],
+			"**/pattern*.",
+			"",
+			undefined,
+			CWD,
+		],
+		[
+			[Object.freeze({})],
+			[`.${SEP}file2.txt`, `.${SEP}sub1${SEP}sub2${SEP}.file4`],
+			"",
+			undefined,
+			"",
+			CWD,
+		],
+		[
+			[],
+			[`.${SEP}file2.txt`],
+			undefined,
+			"",
+			"",
+			CWD,
+		],
+		[
+			[],
+			[`.${SEP}file2.txt`],
+			Object.freeze({}),
+			"sub",
+			"public",
+			`${CWD}${SEP}public${SEP}sub`,
+		],
+		[
+			[Object.freeze({}), Object.freeze({}), Object.freeze({})],
+			[`.${SEP}file2.txt`, `.${SEP}sub1${SEP}sub2${SEP}.file4`, `${CWD}${SEP}sub1${SEP}sub2${SEP}.file4`],
+			"**/.*pattern*",
+			"sub1/sub2",
+			"public",
+			`${CWD}${SEP}public${SEP}sub1${SEP}sub2`,
+		],
+		[
+			[Object.freeze({}), Object.freeze({}), Object.freeze({}), Object.freeze({}), Object.freeze({})],
+			[`.${SEP}sub1${SEP}sub2${SEP}.file4`, `${CWD}${SEP}sub1${SEP}sub2${SEP}.file4`],
+			"resources/sub1/*",
+			"sub1/sub2",
+			"public/sub3/sub4",
+			`${CWD}${SEP}public${SEP}sub3${SEP}sub4${SEP}sub1${SEP}sub2`,
+		],
+	],
+
+};
