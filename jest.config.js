@@ -16,5 +16,6 @@ module.exports = {
 		SEP: SEP,
 		ROOT: ROOT,
 		CWD: CWD,
+		NAMESPACE: "97893054-2180-4178-8437-c298642a27eb",
 	},
 };

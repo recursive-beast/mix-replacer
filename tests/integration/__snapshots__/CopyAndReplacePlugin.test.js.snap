@@ -1,0 +1,427 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Normal flow with versioning 1`] = `
+Object {
+  "assets_data": Object {
+    "/browserconfig.xml": Object {
+      "content": "<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png?id=5db8be17609750169201\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#70ba84</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#471e7d</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png?id=40a5f274c19553d0a7a0\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png?id=7b5572e4d23d5f53bf92\\"/>
+            <TileColor>#ffffff</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#ffffff</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#e3bf86</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png?id=5db8be17609750169201\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"{{
+            /images/mstile-310x310.png
+            }}\\"/>
+            <TileColor>#ffffff</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>
+",
+      "size": 2436,
+    },
+    "/config.json": Object {
+      "content": "{
+	\\"name\\": \\"HackerWeb\\",
+	\\"short_name\\": \\"HackerWeb\\",
+	\\"start_url\\": \\".\\",
+	\\"display\\": \\"standalone\\",
+	\\"background_color\\": \\"#fff\\",
+	\\"description\\": \\"A simply readable Hacker News app.\\",
+	\\"icons\\": [
+		{
+			\\"src\\": \\"/images/touch/homescreen48.png?id=7980c3918f3b58e0bc7a\\",
+			\\"sizes\\": \\"48x48\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen72.png?id=c6c0ba94beb35d51b9b2\\",
+			\\"sizes\\": \\"72x72\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen96.png?id=382f98b5fe07525e9941\\",
+			\\"sizes\\": \\"96x96\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen144.png\\",
+			\\"sizes\\": \\"144x144\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen168.png?id=4065147e3a975df29dd2\\",
+			\\"sizes\\": \\"168x168\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen192.png?id=afed5bee88d35c60877d\\",
+			\\"sizes\\": \\"192x192\\",
+			\\"type\\": \\"image/png\\"
+		}
+	],
+	\\"related_applications\\": [
+		{
+			\\"platform\\": \\"play\\",
+			\\"url\\": \\"https://play.google.com/store/apps/details?id=cheeaun.hackerweb\\"
+		}
+	]
+}
+",
+      "size": 1045,
+    },
+    "/config_files/manifest.json": Object {
+      "content": "{
+	\\"browser_specific_settings\\": {
+		\\"gecko\\": {
+			\\"id\\": \\"addon@example.com\\",
+			\\"strict_min_version\\": \\"42.0\\"
+		}
+	},
+	\\"background\\": {
+		\\"scripts\\": [
+			\\"/js/jquery.js?id=6db478e854f4572c8444\\",
+			\\"/js/my-background.js?id=43879dd6558e5b09b302\\"
+		]
+	},
+	\\"browser_action\\": {
+		\\"default_icon\\": {
+			\\"19\\": \\"button/geo-19.png\\",
+			\\"38\\": \\"/images/button/geo-38.png?id=b0227ed3cc1850898d31\\"
+		},
+		\\"default_title\\": \\"Whereami?\\",
+		\\"default_popup\\": \\"popup/geo.html\\"
+	},
+	\\"commands\\": {
+		\\"toggle-feature\\": {
+			\\"suggested_key\\": {
+				\\"default\\": \\"Ctrl+Shift+Y\\",
+				\\"linux\\": \\"Ctrl+Shift+U\\"
+			},
+			\\"description\\": \\"Send a 'toggle-feature' event\\"
+		}
+	},
+	\\"content_security_policy\\": \\"script-src 'self' https://example.com; object-src 'self'\\",
+	\\"content_scripts\\": [
+		{
+			\\"exclude_matches\\": [
+				\\"*://developer.mozilla.org/*\\"
+			],
+			\\"matches\\": [
+				\\"*://*.mozilla.org/*\\"
+			],
+			\\"js\\": [
+				\\"/js/borderify.js\\"
+			]
+		}
+	],
+	\\"default_locale\\": \\"en\\",
+	\\"description\\": \\"...\\",
+	\\"icons\\": {
+		\\"48\\": \\"icon.png\\",
+		\\"96\\": \\"icon@2x.png\\"
+	},
+	\\"manifest_version\\": 2,
+	\\"name\\": \\"...\\",
+	\\"page_action\\": {
+		\\"default_icon\\": {
+			\\"19\\": \\"button/geo-19.png\\",
+			\\"38\\": \\"/images/button/geo-38.png?id=b0227ed3cc1850898d31\\"
+		},
+		\\"default_title\\": \\"Whereami?\\",
+		\\"default_popup\\": \\"/popup/geo.html\\"
+	},
+	\\"permissions\\": [
+		\\"webNavigation\\"
+	],
+	\\"version\\": \\"0.1\\",
+	\\"user_scripts\\": {
+		\\"api_script\\": \\"apiscript.js\\"
+	},
+	\\"web_accessible_resources\\": [
+		\\"{{/images
+		/my-image.png}}\\"
+	]
+}
+",
+      "size": 1449,
+    },
+  },
+  "manifest": Object {
+    "/browserconfig.xml": "/browserconfig.xml?id=5026c6b745cdabc97f53",
+    "/config.json": "/config.json?id=3c264d5f7e068cd665f9",
+    "/config_files/manifest.json": "/config_files/manifest.json?id=924bdab720275b6c0aad",
+    "/images/button/geo-38.png": "/images/button/geo-38.png?id=b0227ed3cc1850898d31",
+    "/images/mstile-150x150.png": "/images/mstile-150x150.png?id=5db8be17609750169201",
+    "/images/mstile-310x310.png": "/images/mstile-310x310.png?id=7b5572e4d23d5f53bf92",
+    "/images/mstile-70x70.png": "/images/mstile-70x70.png?id=40a5f274c19553d0a7a0",
+    "/images/touch/homescreen168.png": "/images/touch/homescreen168.png?id=4065147e3a975df29dd2",
+    "/images/touch/homescreen192.png": "/images/touch/homescreen192.png?id=afed5bee88d35c60877d",
+    "/images/touch/homescreen48.png": "/images/touch/homescreen48.png?id=7980c3918f3b58e0bc7a",
+    "/images/touch/homescreen72.png": "/images/touch/homescreen72.png?id=c6c0ba94beb35d51b9b2",
+    "/images/touch/homescreen96.png": "/images/touch/homescreen96.png?id=382f98b5fe07525e9941",
+    "/js/jquery.js": "/js/jquery.js?id=6db478e854f4572c8444",
+    "/js/my-background.js": "/js/my-background.js?id=43879dd6558e5b09b302",
+    "/popup/geo.html": "/popup/geo.html?id=d7bc85eb914b5a219de1",
+  },
+}
+`;
+
+exports[`Normal flow without versioning 1`] = `
+Object {
+  "assets_data": Object {
+    "/browserconfig.xml": Object {
+      "content": "<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#70ba84</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#471e7d</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#ffffff</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#ffffff</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"/images/mstile-310x310.png\\"/>
+            <TileColor>#e3bf86</TileColor>
+        </tile>
+    </msapplication>
+    <msapplication>
+        <tile>
+            <square70x70logo src=\\"/images/mstile-70x70.png\\"/>
+            <square150x150logo src=\\"/images/mstile-150x150.png\\"/>
+            <wide310x150logo src=\\"/images/mstile-310x150.png\\"/>
+            <square310x310logo src=\\"{{
+            /images/mstile-310x310.png
+            }}\\"/>
+            <TileColor>#ffffff</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>
+",
+      "size": 2340,
+    },
+    "/config.json": Object {
+      "content": "{
+	\\"name\\": \\"HackerWeb\\",
+	\\"short_name\\": \\"HackerWeb\\",
+	\\"start_url\\": \\".\\",
+	\\"display\\": \\"standalone\\",
+	\\"background_color\\": \\"#fff\\",
+	\\"description\\": \\"A simply readable Hacker News app.\\",
+	\\"icons\\": [
+		{
+			\\"src\\": \\"/images/touch/homescreen48.png\\",
+			\\"sizes\\": \\"48x48\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen72.png\\",
+			\\"sizes\\": \\"72x72\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen96.png\\",
+			\\"sizes\\": \\"96x96\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen144.png\\",
+			\\"sizes\\": \\"144x144\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen168.png\\",
+			\\"sizes\\": \\"168x168\\",
+			\\"type\\": \\"image/png\\"
+		},
+		{
+			\\"src\\": \\"/images/touch/homescreen192.png\\",
+			\\"sizes\\": \\"192x192\\",
+			\\"type\\": \\"image/png\\"
+		}
+	],
+	\\"related_applications\\": [
+		{
+			\\"platform\\": \\"play\\",
+			\\"url\\": \\"https://play.google.com/store/apps/details?id=cheeaun.hackerweb\\"
+		}
+	]
+}
+",
+      "size": 925,
+    },
+    "/config_files/manifest.json": Object {
+      "content": "{
+	\\"browser_specific_settings\\": {
+		\\"gecko\\": {
+			\\"id\\": \\"addon@example.com\\",
+			\\"strict_min_version\\": \\"42.0\\"
+		}
+	},
+	\\"background\\": {
+		\\"scripts\\": [
+			\\"/js/jquery.js\\",
+			\\"/js/my-background.js\\"
+		]
+	},
+	\\"browser_action\\": {
+		\\"default_icon\\": {
+			\\"19\\": \\"button/geo-19.png\\",
+			\\"38\\": \\"/images/button/geo-38.png\\"
+		},
+		\\"default_title\\": \\"Whereami?\\",
+		\\"default_popup\\": \\"popup/geo.html\\"
+	},
+	\\"commands\\": {
+		\\"toggle-feature\\": {
+			\\"suggested_key\\": {
+				\\"default\\": \\"Ctrl+Shift+Y\\",
+				\\"linux\\": \\"Ctrl+Shift+U\\"
+			},
+			\\"description\\": \\"Send a 'toggle-feature' event\\"
+		}
+	},
+	\\"content_security_policy\\": \\"script-src 'self' https://example.com; object-src 'self'\\",
+	\\"content_scripts\\": [
+		{
+			\\"exclude_matches\\": [
+				\\"*://developer.mozilla.org/*\\"
+			],
+			\\"matches\\": [
+				\\"*://*.mozilla.org/*\\"
+			],
+			\\"js\\": [
+				\\"/js/borderify.js\\"
+			]
+		}
+	],
+	\\"default_locale\\": \\"en\\",
+	\\"description\\": \\"...\\",
+	\\"icons\\": {
+		\\"48\\": \\"icon.png\\",
+		\\"96\\": \\"icon@2x.png\\"
+	},
+	\\"manifest_version\\": 2,
+	\\"name\\": \\"...\\",
+	\\"page_action\\": {
+		\\"default_icon\\": {
+			\\"19\\": \\"button/geo-19.png\\",
+			\\"38\\": \\"/images/button/geo-38.png\\"
+		},
+		\\"default_title\\": \\"Whereami?\\",
+		\\"default_popup\\": \\"/popup/geo.html\\"
+	},
+	\\"permissions\\": [
+		\\"webNavigation\\"
+	],
+	\\"version\\": \\"0.1\\",
+	\\"user_scripts\\": {
+		\\"api_script\\": \\"apiscript.js\\"
+	},
+	\\"web_accessible_resources\\": [
+		\\"{{/images
+		/my-image.png}}\\"
+	]
+}
+",
+      "size": 1353,
+    },
+  },
+  "manifest": Object {
+    "/browserconfig.xml": "/browserconfig.xml",
+    "/config.json": "/config.json",
+    "/config_files/manifest.json": "/config_files/manifest.json",
+    "/images/button/geo-38.png": "/images/button/geo-38.png",
+    "/images/mstile-150x150.png": "/images/mstile-150x150.png",
+    "/images/mstile-310x310.png": "/images/mstile-310x310.png",
+    "/images/mstile-70x70.png": "/images/mstile-70x70.png",
+    "/images/touch/homescreen168.png": "/images/touch/homescreen168.png",
+    "/images/touch/homescreen192.png": "/images/touch/homescreen192.png",
+    "/images/touch/homescreen48.png": "/images/touch/homescreen48.png",
+    "/images/touch/homescreen72.png": "/images/touch/homescreen72.png",
+    "/images/touch/homescreen96.png": "/images/touch/homescreen96.png",
+    "/js/jquery.js": "/js/jquery.js",
+    "/js/my-background.js": "/js/my-background.js",
+    "/popup/geo.html": "/popup/geo.html",
+  },
+}
+`;

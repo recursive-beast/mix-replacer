@@ -40,6 +40,7 @@
 	"devDependencies": {
 		"laravel-mix": "^5.0.4",
 		"glob": "^7.1.6",
+		"uuid": "^8.1.0",
 		"jest": "^26.0.1",
 		"@types/jest": "^26.0.0"
 	},
