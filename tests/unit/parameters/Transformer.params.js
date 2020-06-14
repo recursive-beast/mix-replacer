@@ -1,3 +1,5 @@
+const {withHashQuery} = require("../../helpers");
+
 module.exports = {
 	"_flush": [
 		// [
@@ -53,98 +55,149 @@ module.exports = {
 		],
 		[
 			"",
-			"content {{/public/path}} more content",
-			[null, "content /public/path?id=hash more content"],
+			"content {{/public/sub/path}} more content",
+			[
+				null,
+				`content ${withHashQuery("/public/sub/path")} more content`,
+			],
 			"",
 		],
 		[
 			"",
-			"content {{/public/path}} more {{content",
-			[null, "content /public/path?id=hash more "],
+			"content {{/public/sub/path}} more {{content",
+			[
+				null,
+				`content ${withHashQuery("/public/sub/path")} more `,
+			],
 			"{{content",
 		],
 		[
 			"",
-			"content {{/public/path}} more {{",
-			[null, "content /public/path?id=hash more "],
+			"content {{/public/path2}} more {{",
+			[
+				null,
+				`content ${withHashQuery("/public/path2")} more `,
+			],
 			"{{",
 		],
 		[
 			"",
-			"content {{/public/path}} more {",
-			[null, "content /public/path?id=hash more "],
+			"content {{/public/sub/path}} more {",
+			[
+				null,
+				`content ${withHashQuery("/public/sub/path")} more `,
+			],
 			"{",
 		],
 		[
 			"",
-			"content {{/public/path}} {{more {{ content",
-			[null, "content /public/path?id=hash "],
+			"content {{/public/path2}} {{more {{ content",
+			[
+				null,
+				`content ${withHashQuery("/public/path2")} `,
+			],
 			"{{more {{ content",
 		],
 		[
 			"",
-			"content {{/public/path}} {{more { content",
-			[null, "content /public/path?id=hash "],
+			"content {{/public/path2}} {{more { content",
+			[
+				null,
+				`content ${withHashQuery("/public/path2")} `,
+			],
 			"{{more { content",
 		],
 		[
 			"",
-			"content {{/public/path}} {{even { more { content",
-			[null, "content /public/path?id=hash "],
+			"content {{/path3}} {{even { more { content",
+			[
+				null,
+				`content /path3 `,
+			],
 			"{{even { more { content",
 		],
 		[
 			"",
-			"content {{/public/path}} {{even {{/public/path}} more {{ content",
-			[null, "content /public/path?id=hash even {{/public/path more "],
+			"content {{/public/path2}} {{even {{/public/path2}} more {{ content",
+			[
+				null,
+				`content ${withHashQuery("/public/path2")} even {{/public/path2 more `,
+			],
 			"{{ content",
 		],
 		[
 			"",
-			"content {{/no/exist/manifest}} {{ /public/path}} more {{ content",
-			[null, "content /no/exist/manifest  /public/path more "],
+			"content {{/no/exist/manifest}} {{ /path3}} more {{ content",
+			[
+				null,
+				"content /no/exist/manifest  /path3 more ",
+			],
 			"{{ content",
 		],
 		[
 			"",
-			"content {{/no/exist/manifest}} {{/public\n/path}} more {{ content",
-			[null, "content /no/exist/manifest {{/public\n/path}} more "],
+			"content {{/no/exist/manifest}} {{/public\n/path2}} more {{ content",
+			[
+				null,
+				"content /no/exist/manifest {{/public\n/path2}} more ",
+			],
 			"{{ content",
 		],
 		[
 			"",
-			"content {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path}} more {{ content",
-			[null, "content /no/exist/manifest {{/public\n/path}} \t /public/path?id=hash more "],
+			"content {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path2}} more {{ content",
+			[
+				null,
+				`content /no/exist/manifest {{/public\n/path}} \t ${withHashQuery("/public/path2")} more `,
+			],
 			"{{ content",
 		],
 		[
 			"{",
-			"content {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path}} more {{ content",
-			[null, "{content /no/exist/manifest {{/public\n/path}} \t /public/path?id=hash more "],
+			"content {{/no/exist/manifest}} {{/public\n/path}} \t {{/path3}} more {{ content",
+			[
+				null,
+				`{content /no/exist/manifest {{/public\n/path}} \t /path3 more `,
+			],
 			"{{ content",
 		],
 		[
 			"{{",
-			"content {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path}} more {{ content",
-			[null, "content {{/no/exist/manifest {{/public\n/path}} \t /public/path?id=hash more "],
+			"content {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/sub/path}} more {{ content",
+			[
+				null,
+				`content {{/no/exist/manifest {{/public\n/path}} \t ${withHashQuery("/public/sub/path")} more `,
+			],
 			"{{ content",
 		],
 		[
 			"{{",
-			"/public/path2}} {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path}} more {{ content",
-			[null, "/public/path2?id=other-hash /no/exist/manifest {{/public\n/path}} \t /public/path?id=hash more "],
+			"/public/path2}} {{/no/exist/manifest}} {{/public\n/path}} \t {{/path3}} more {{ content",
+			[
+				null,
+				`${withHashQuery("/public/path2")} /no/exist/manifest`
+				+ ` {{/public\n/path}} \t /path3 more `,
+			],
 			"{{ content",
 		],
 		[
 			"{",
-			"{/public/path2}} {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path}} more {{ content",
-			[null, "/public/path2?id=other-hash /no/exist/manifest {{/public\n/path}} \t /public/path?id=hash more "],
+			"{/public/path2}} {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path2}} more {{ content",
+			[
+				null,
+				`${withHashQuery("/public/path2")} /no/exist/manifest`
+				+ ` {{/public\n/path}} \t ${withHashQuery("/public/path2")} more `,
+			],
 			"{{ content",
 		],
 		[
 			"{{/publ",
-			"ic/path2}} {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/path}} more {{ content",
-			[null, "/public/path2?id=other-hash /no/exist/manifest {{/public\n/path}} \t /public/path?id=hash more "],
+			"ic/path2}} {{/no/exist/manifest}} {{/public\n/path}} \t {{/public/sub/path}} more {{ content",
+			[
+				null,
+				`${withHashQuery("/public/path2")} /no/exist/manifest`
+				+ ` {{/public\n/path}} \t ${withHashQuery("/public/sub/path")} more `,
+			],
 			"{{ content",
 		],
 	],

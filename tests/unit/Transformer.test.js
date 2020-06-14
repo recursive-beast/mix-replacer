@@ -1,5 +1,6 @@
 const Transformer = require("../../src/Transformer");
 const params = require("./parameters/Transformer.params");
+const {withHashQuery} = require("../helpers");
 
 describe("_flush method", () => {
 	test.each(params._flush)(
@@ -23,8 +24,9 @@ describe("_transform method", () => {
 		(savedData, chunk, expected_callback_args, expected_saved_data) => {
 			const callback = jest.fn();
 			const manifest = {
-				"/public/path": "/public/path?id=hash",
-				"/public/path2": "/public/path2?id=other-hash",
+				"/public/sub/path": withHashQuery("/public/sub/path"),
+				"/public/path2": withHashQuery("/public/path2"),
+				"/path3": "/path3",
 			};
 			const transformer = new Transformer(manifest);
 			transformer._savedData = savedData;
