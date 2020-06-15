@@ -52,12 +52,14 @@ describe("Normal flow", () => {
 						},
 					});
 
-					const assets_data = Object.keys(Stats.compilation.assets).reduce(
+					const assets = Stats.compilation.assets;
+
+					const assets_data = Object.keys(assets).reduce(
 						(accumulator, public_url) => {
 							const target_public_path = path.join(public_dir, public_url);
 
 							accumulator[public_url] = {
-								size: Stats.compilation.assets[public_url].size(),
+								is_expected_size: assets[public_url].size() === fs.statSync(target_public_path).size,
 								content: fs.readFileSync(target_public_path).toString(),
 							};
 
@@ -91,7 +93,7 @@ describe("Normal flow", () => {
 
 test("Throws Error", () => {
 	const plugin = new CopyAndReplacePlugin();
-	
+
 	expect(() => {
 		const tmpdir = getTempDir();
 		plugin.register("non/existant/**/*", tmpdir);
