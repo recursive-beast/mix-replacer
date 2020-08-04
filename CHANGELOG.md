@@ -1,3 +1,7 @@
+## v1.3.1
+
+- Fix `delimiter.left` string in `README.md`.
+
 ## v1.3.0
 
 - Support custom options. (`delimiters` is the only one supported for now)
