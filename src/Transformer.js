@@ -1,11 +1,24 @@
 const Transform = require("stream").Transform;
 const StringDecoder = require("string_decoder").StringDecoder;
+const {escapeRegExp} = require("./helpers");
+const {options} = require("./options");
 
 class Transformer extends Transform {
 
-	constructor(manifest, options) {
-		super(options);
+	constructor(manifest) {
+		super();
 
+		const r = escapeRegExp(options.delimiters.right);
+		let l = options.delimiters.left;
+		const l_0 = escapeRegExp(l[0]);
+		const l_1 = escapeRegExp(l[1]);
+		l = l_0 + l_1;
+
+		const reg_str = `${l}(.*?)${r}`
+		                + "|"
+		                + `(${l_0}(?:${l_1}(?:.*)?)?)$`;
+
+		this._regExp = new RegExp(reg_str, "g");
 		this.manifest = manifest;
 		this._decoder = new StringDecoder();
 		this._savedData = "";
@@ -34,7 +47,7 @@ class Transformer extends Transform {
 		}
 
 		const result = chunk.replace(
-			/{{(.*?)}}|({(?:{(?:.*)?)?)$/g,
+			this._regExp,
 
 			(substring, group1, group2) => {
 				if (typeof group2 === "undefined") {
