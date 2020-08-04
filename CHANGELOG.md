@@ -1,3 +1,7 @@
+## v1.3.0
+
+- Support custom options. (`delimiters` is the only one supported for now)
+
 ## v1.2.0
 
 - Support node.js versions `>= 10.12.0`
