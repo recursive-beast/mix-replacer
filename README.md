@@ -79,7 +79,7 @@ You can pass an object to the `options` to specify custom options:
 ```javascript
 require("mix-replacer").options({
 	delimiter: {
-		left: "["
+		left: "[["
 	}
 });
 ```
