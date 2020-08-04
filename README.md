@@ -74,17 +74,17 @@ Will be transformed to This: (Of course, your particular hashes will be unique)
 
 ## Options
 
-You can pass an object to the `options` to specify custom options:
+You can pass an object to the `options` method to specify custom options:
 
 ```javascript
 require("mix-replacer").options({
-	delimiter: {
+	delimiters: {
 		left: "[["
 	}
 });
 ```
 
-- `delimiter`: {object}
+- `delimiters`: {object}
     - `left`: {string} - The left delimiter. Defaults to `"{{"`.
     - `right`: {string} - The right delimiter. Defaults to `"}}"`.
 
