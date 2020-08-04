@@ -1,3 +1,7 @@
+## v1.3.2
+
+- Fix typos in `README.md`.
+
 ## v1.3.1
 
 - Fix `delimiter.left` string in `README.md`.
