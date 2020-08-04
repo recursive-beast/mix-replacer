@@ -72,6 +72,22 @@ Will be transformed to This: (Of course, your particular hashes will be unique)
 </browserconfig>
 ```
 
+## Options
+
+You can pass an object to the `options` to specify custom options:
+
+```javascript
+require("mix-replacer").options({
+	delimiter: {
+		left: "["
+	}
+});
+```
+
+- `delimiter`: {object}
+    - `left`: {string} - The left delimiter. Defaults to `"{{"`.
+    - `right`: {string} - The right delimiter. Defaults to `"}}"`.
+
 ## Getting started
 
 These instructions will get you a copy of the project up and running on your local machine for development and
