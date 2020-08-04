@@ -8,3 +8,7 @@ const CopyAndReplacePlugin = require("./CopyAndReplacePlugin");
  * @param {string} target_dir The target directory inside the public path.
  */
 mix.extend("copyAndReplace", new CopyAndReplacePlugin());
+
+module.exports = {
+	options: require("./options").merge,
+};
