@@ -1,8 +1,16 @@
+
+const { execSync } = require("child_process");
 const path = require("path");
 const IS_UNIX = path.sep === "/";
 const SEP = path.sep;
-const ROOT = IS_UNIX ? "/" : "C:\\";
+const ROOT = IS_UNIX ? "/" : getWindowsRoot();
 const CWD = path.resolve();
+
+function getWindowsRoot(){
+	// In Github Actions environment the hard drive is D:\
+	// this should get correct path.
+	return execSync("chdir").toString().split("\\")[0] + "\\";
+}
 
 module.exports = {
 	verbose: true,

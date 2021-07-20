@@ -1,10 +1,11 @@
 {
 	"name": "mix-replacer",
-	"version": "1.3.2",
+	"version": "2.0.0",
 	"description": "A laravel-mix extension to copy files append hash queries to public urls.",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "jest"
+		"test": "jest",
+		"test:ci": "jest --runInBand --ci"
 	},
 	"repository": {
 		"type": "git",
@@ -35,21 +36,20 @@
 		"src"
 	],
 	"engines": {
-		"node": ">= 10.12.0"
+		"node": ">= 12.0.0"
 	},
 	"devDependencies": {
-		"laravel-mix": "^5.0.4",
+		"@types/jest": "^26.0.0",
 		"glob": "^7.1.6",
-		"uuid": "^8.1.0",
-		"jest": "^26.0.1",
-		"@types/jest": "^26.0.0"
+		"jest": "^27.0.6",
+		"laravel-mix": "^6.0.25",
+		"uuid": "^8.1.0"
 	},
 	"peerDependencies": {
-		"laravel-mix": "^5.0.0",
-		"glob": "^7.0.0"
+		"glob": "^7.0.0",
+		"laravel-mix": "^6.0.25"
 	},
 	"dependencies": {
-		"lodash": "^4.17.19",
 		"validate": "^5.1.0"
 	}
 }

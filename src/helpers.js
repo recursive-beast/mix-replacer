@@ -6,6 +6,13 @@ function escapeRegExp(string) {
 	return string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&");
 }
 
+function merge(defaultOptions, overrideOptions) {
+	for (let key in overrideOptions) {
+		defaultOptions[key] = overrideOptions[key];
+	}
+}
+
 module.exports = {
 	escapeRegExp,
+	merge
 };
