@@ -1,3 +1,9 @@
+## v.2.0.0
+
+- Required minimal Node engine version 12.x
+- Required minimal `laravel-mix` version 6.0.25
+- Remove `lodash` dependecie
+
 ## v1.3.2
 
 - Fix typos in `README.md`.

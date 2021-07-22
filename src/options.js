@@ -1,5 +1,5 @@
-const _ = require("lodash");
 const Schema = require("validate");
+const {merge: mergeOptions} = require("./helpers");
 
 const schema = new Schema({
 	delimiters: {
@@ -36,7 +36,7 @@ function merge(new_options) {
 		throw errors[0];
 	}
 
-	_.merge(options, new_options);
+	mergeOptions(options, new_options);
 }
 
 module.exports = {

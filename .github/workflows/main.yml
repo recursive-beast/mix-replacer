@@ -1,0 +1,36 @@
+name: mix-replacer
+on: [push]
+jobs:
+  Jest-Tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        args:
+          - LARAVEL_MIX_VERSION: ^5.0.4
+          - LARAVEL_MIX_VERSION: ^6.0.25
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [12.x, 13.x, 14.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache_name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-${{ matrix.args.LARAVEL_MIX_VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm install laravel-mix@${{matrix.args.LARAVEL_MIX_VERSION}} -f
+      - run: npm run test:ci

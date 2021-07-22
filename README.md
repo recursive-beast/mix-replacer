@@ -4,9 +4,13 @@
 [![codecov](https://codecov.io/gh/soufyakoub/mix-replacer/branch/master/graph/badge.svg)](https://codecov.io/gh/soufyakoub/mix-replacer)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/soufyakoub/mix-replacer/blob/master/LICENSE)
 
+# Last versions
+
+**mix-replacer@2.0.0** work from **laravel-mix@^5.0.4** to **laravel-mix@6.0.25**, but if you using **Node 10.x**, just **laravel-mix@^5.0.4** work because, the minimal Node version for **laravel-mix@6.0.25** is **12.x**.
+
 # mix-replacer
 
-> A [laravel-mix](https://laravel-mix.com/docs/5.0/versioning) extension to copy files
+> A [laravel-mix](https://laravel-mix.com/docs/versioning) extension to copy files
 > and append hash queries to public urls.
 
 ## Installation
@@ -102,9 +106,6 @@ Install dependencies with: `npm install`
 Running tests is as simple as typing `npm run test` in a terminal from the project's root directory.
 
 Coverage reports are generated to `tests/coverage`.
-
-| :warning: make sure your node.js version is `>= 10.14.2`, [here's why](https://github.com/facebook/jest/issues/9538)|
-|---|
 
 ## Contributing
 
