@@ -1,6 +1,11 @@
 const mix = require("laravel-mix");
 const CopyAndReplacePlugin = require("./CopyAndReplacePlugin");
 
+process.emitWarning(
+	"[mix-replacer] is deprecated. Use [laravel-mix-manifest-paths] instead.",
+	"DeprecationWarning"
+);
+
 /**
  * Copy a file and replace public urls inside double brace syntax with their
  * corresponding values from the `mix-manifest.json`.

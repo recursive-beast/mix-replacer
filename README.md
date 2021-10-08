@@ -4,6 +4,9 @@
 [![codecov](https://codecov.io/gh/soufyakoub/mix-replacer/branch/master/graph/badge.svg)](https://codecov.io/gh/soufyakoub/mix-replacer)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/soufyakoub/mix-replacer/blob/master/LICENSE)
 
+| :warning: This package is deprecated. Use [laravel-mix-manifest-paths](https://github.com/soufyakoub/laravel-mix-manifest-paths) instead. :warning: |
+|---|
+
 # mix-replacer
 
 > A [laravel-mix](https://laravel-mix.com/docs/5.0/versioning) extension to copy files
@@ -39,7 +42,7 @@ public URLs inside double braces `{{ }}` will contain hash queries
 extracted from the generated `public/mix-manifest.json`.
 
 ## Example
- 
+
 This:
 
 ```xml
